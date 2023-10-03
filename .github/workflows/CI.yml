@@ -1,0 +1,23 @@
+
+name: ContinousIntegrationTest
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3.2.0
+        with:
+          dotnet-version: 6.x.x
+      - name: Restore depedencies
+        run: dotnet restore
+      - name: Build application
+        run: dotnet build --no-restore
+        
